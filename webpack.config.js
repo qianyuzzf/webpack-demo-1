@@ -2,7 +2,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
 
 module.exports = {
-  mode: 'development',
+  mode: 'development', //mode为development时才可以使用webpack
+  devtool: 'inline-source-map',
+  devServer: {
+    contentBase: './dist'
+  },
   entry: './src/index.js', //输入
   output: {
     //输出
