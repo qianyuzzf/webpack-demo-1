@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const path = require('path')
 
 module.exports = {
@@ -19,6 +20,12 @@ module.exports = {
       //生成html文件
       title: 'qianyu', //生成的html标题，如果有html模板，则此标题不生效，除非html模板内title标签内写入<%= htmlWebpackPlugin.options.title %>
       template: 'src/assets/index.html' //需要生成html的模板
+    }),
+    new MiniCssExtractPlugin({
+      //生成css文件
+      filename: '[name].[contenthash].css',
+      chunkFilename: '[id].[contenthash].css',
+      ignoreOrder: false
     })
   ],
   module: {
@@ -26,7 +33,17 @@ module.exports = {
     rules: [
       {
         test: /\.css$/i,
-        use: ['style-loader', 'css-loader'] //css-loader把css内容读到js里面，style-loader把css-loader读到的css字符串内容放到html里面的style标签内
+        use: [
+          //抽成css文件
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: '../'
+            }
+          },
+          'css-loader'
+        ]
+        // use: ['style-loader', 'css-loader'] //css-loader把css内容读到js里面，style-loader把css-loader读到的css字符串内容放到html里面的style标签内
       }
     ]
   }
