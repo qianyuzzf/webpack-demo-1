@@ -1,3 +1,2 @@
 import x from './x.js'
-
-console.log(x)
+import './style.css'
