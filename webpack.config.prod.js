@@ -3,7 +3,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const base = require('./webpack.config.base.js')
 
 module.exports = {
-  ...base, //把base的所有属性植入
+  ...base,
   mode: 'production',
   plugins: [
     ...base.plugins, //把base.plugins的所有属性植入
@@ -17,6 +17,7 @@ module.exports = {
   module: {
     //打包css文件
     rules: [
+      ...base.module.rules,
       {
         test: /\.css$/i,
         use: [
